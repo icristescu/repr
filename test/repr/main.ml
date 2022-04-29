@@ -12,7 +12,7 @@ let of_bin_string t = T.unstage (T.of_bin_string t)
 let encode_bin t = T.unstage (T.encode_bin t)
 let decode_bin t = T.unstage (T.decode_bin t)
 
-let size_of t v =
+let _size_of t v =
   match T.Size.of_value t with
   | Unknown -> assert false
   | Dynamic f -> f v
@@ -676,78 +676,78 @@ let test_decode () =
   decode ~off:2 "xx\002aa" (Ok "aa");
   decode ~off:2 "xx\000aaaaa" (Ok "")
 
-type v =
-  [ `X000 | `X001 | `X002 | `X003 of int | `X004 of int | `X005 of int
-  | `X006 of int | `X007 of int | `X008 of int | `X009 of int | `X010 of int
-  | `X011 of int | `X012 of int | `X013 of int | `X014 of int | `X015 of int
-  | `X016 of int | `X017 of int | `X018 of int | `X019 of int | `X020 of int
-  | `X021 of int | `X022 of int | `X023 of int | `X024 of int | `X025 of int
-  | `X026 of int | `X027 of int | `X028 of int | `X029 of int | `X030 of int
-  | `X031 of int | `X032 of int | `X033 of int | `X034 of int | `X035 of int
-  | `X036 of int | `X037 of int | `X038 of int | `X039 of int | `X040 of int
-  | `X041 of int | `X042 of int | `X043 of int | `X044 of int | `X045 of int
-  | `X046 of int | `X047 of int | `X048 of int | `X049 of int | `X050 of int
-  | `X051 of int | `X052 of int | `X053 of int | `X054 of int | `X055 of int
-  | `X056 of int | `X057 of int | `X058 of int | `X059 of int | `X060 of int
-  | `X061 of int | `X062 of int | `X063 of int | `X064 of int | `X065 of int
-  | `X066 of int | `X067 of int | `X068 of int | `X069 of int | `X070 of int
-  | `X071 of int | `X072 of int | `X073 of int | `X074 of int | `X075 of int
-  | `X076 of int | `X077 of int | `X078 of int | `X079 of int | `X080 of int
-  | `X081 of int | `X082 of int | `X083 of int | `X084 of int | `X085 of int
-  | `X086 of int | `X087 of int | `X088 of int | `X089 of int | `X090 of int
-  | `X091 of int | `X092 of int | `X093 of int | `X094 of int | `X095 of int
-  | `X096 of int | `X097 of int | `X098 of int | `X099 of int | `X100 of int
-  | `X101 of int | `X102 of int | `X103 of int | `X104 of int | `X105 of int
-  | `X106 of int | `X107 of int | `X108 of int | `X109 of int | `X110 of int
-  | `X111 of int | `X112 of int | `X113 of int | `X114 of int | `X115 of int
-  | `X116 of int | `X117 of int | `X118 of int | `X119 of int | `X120 of int
-  | `X121 of int | `X122 of int | `X123 of int | `X124 of int | `X125 of int
-  | `X126 of int | `X127 of int | `X128 of int | `X129 of int | `X130 of int
-  | `X131 of int | `X132 of int | `X133 of int | `X134 of int | `X135 of int
-  | `X136 of int | `X137 of int | `X138 of int | `X139 of int | `X140 of int
-  | `X141 of int | `X142 of int | `X143 of int | `X144 of int | `X145 of int
-  | `X146 of int | `X147 of int | `X148 of int | `X149 of int | `X150 of int
-  | `X151 of int | `X152 of int | `X153 of int | `X154 of int | `X155 of int
-  | `X156 of int | `X157 of int | `X158 of int | `X159 of int | `X160 of int
-  | `X161 of int | `X162 of int | `X163 of int | `X164 of int | `X165 of int
-  | `X166 of int | `X167 of int | `X168 of int | `X169 of int | `X170 of int
-  | `X171 of int | `X172 of int | `X173 of int | `X174 of int | `X175 of int
-  | `X176 of int | `X177 of int | `X178 of int | `X179 of int | `X180 of int
-  | `X181 of int | `X182 of int | `X183 of int | `X184 of int | `X185 of int
-  | `X186 of int | `X187 of int | `X188 of int | `X189 of int | `X190 of int
-  | `X191 of int | `X192 of int | `X193 of int | `X194 of int | `X195 of int
-  | `X196 of int | `X197 of int | `X198 of int | `X199 of int | `X200 of int
-  | `X201 of int | `X202 of int | `X203 of int | `X204 of int | `X205 of int
-  | `X206 of int | `X207 of int | `X208 of int | `X209 of int | `X210 of int
-  | `X211 of int | `X212 of int | `X213 of int | `X214 of int | `X215 of int
-  | `X216 of int | `X217 of int | `X218 of int | `X219 of int | `X220 of int
-  | `X221 of int | `X222 of int | `X223 of int | `X224 of int | `X225 of int
-  | `X226 of int | `X227 of int | `X228 of int | `X229 of int | `X230 of int
-  | `X231 of int | `X232 of int | `X233 of int | `X234 of int | `X235 of int
-  | `X236 of int | `X237 of int | `X238 of int | `X239 of int | `X240 of int
-  | `X241 of int | `X242 of int | `X243 of int | `X244 of int | `X245 of int
-  | `X246 of int | `X247 of int | `X248 of int | `X249 of int | `X250 of int
-  | `X251 of int | `X252 of int | `X253 of int | `X254 of int | `X255 of int
-  | `X256 of int | `X257 of int | `X258 of int | `X259 of int ]
-[@@deriving repr { name = "v"}] [@@ocamlformat "disable"]
+(* type v =
+ *   [ `X000 | `X001 | `X002 | `X003 of int | `X004 of int | `X005 of int
+ *   | `X006 of int | `X007 of int | `X008 of int | `X009 of int | `X010 of int
+ *   | `X011 of int | `X012 of int | `X013 of int | `X014 of int | `X015 of int
+ *   | `X016 of int | `X017 of int | `X018 of int | `X019 of int | `X020 of int
+ *   | `X021 of int | `X022 of int | `X023 of int | `X024 of int | `X025 of int
+ *   | `X026 of int | `X027 of int | `X028 of int | `X029 of int | `X030 of int
+ *   | `X031 of int | `X032 of int | `X033 of int | `X034 of int | `X035 of int
+ *   | `X036 of int | `X037 of int | `X038 of int | `X039 of int | `X040 of int
+ *   | `X041 of int | `X042 of int | `X043 of int | `X044 of int | `X045 of int
+ *   | `X046 of int | `X047 of int | `X048 of int | `X049 of int | `X050 of int
+ *   | `X051 of int | `X052 of int | `X053 of int | `X054 of int | `X055 of int
+ *   | `X056 of int | `X057 of int | `X058 of int | `X059 of int | `X060 of int
+ *   | `X061 of int | `X062 of int | `X063 of int | `X064 of int | `X065 of int
+ *   | `X066 of int | `X067 of int | `X068 of int | `X069 of int | `X070 of int
+ *   | `X071 of int | `X072 of int | `X073 of int | `X074 of int | `X075 of int
+ *   | `X076 of int | `X077 of int | `X078 of int | `X079 of int | `X080 of int
+ *   | `X081 of int | `X082 of int | `X083 of int | `X084 of int | `X085 of int
+ *   | `X086 of int | `X087 of int | `X088 of int | `X089 of int | `X090 of int
+ *   | `X091 of int | `X092 of int | `X093 of int | `X094 of int | `X095 of int
+ *   | `X096 of int | `X097 of int | `X098 of int | `X099 of int | `X100 of int
+ *   | `X101 of int | `X102 of int | `X103 of int | `X104 of int | `X105 of int
+ *   | `X106 of int | `X107 of int | `X108 of int | `X109 of int | `X110 of int
+ *   | `X111 of int | `X112 of int | `X113 of int | `X114 of int | `X115 of int
+ *   | `X116 of int | `X117 of int | `X118 of int | `X119 of int | `X120 of int
+ *   | `X121 of int | `X122 of int | `X123 of int | `X124 of int | `X125 of int
+ *   | `X126 of int | `X127 of int | `X128 of int | `X129 of int | `X130 of int
+ *   | `X131 of int | `X132 of int | `X133 of int | `X134 of int | `X135 of int
+ *   | `X136 of int | `X137 of int | `X138 of int | `X139 of int | `X140 of int
+ *   | `X141 of int | `X142 of int | `X143 of int | `X144 of int | `X145 of int
+ *   | `X146 of int | `X147 of int | `X148 of int | `X149 of int | `X150 of int
+ *   | `X151 of int | `X152 of int | `X153 of int | `X154 of int | `X155 of int
+ *   | `X156 of int | `X157 of int | `X158 of int | `X159 of int | `X160 of int
+ *   | `X161 of int | `X162 of int | `X163 of int | `X164 of int | `X165 of int
+ *   | `X166 of int | `X167 of int | `X168 of int | `X169 of int | `X170 of int
+ *   | `X171 of int | `X172 of int | `X173 of int | `X174 of int | `X175 of int
+ *   | `X176 of int | `X177 of int | `X178 of int | `X179 of int | `X180 of int
+ *   | `X181 of int | `X182 of int | `X183 of int | `X184 of int | `X185 of int
+ *   | `X186 of int | `X187 of int | `X188 of int | `X189 of int | `X190 of int
+ *   | `X191 of int | `X192 of int | `X193 of int | `X194 of int | `X195 of int
+ *   | `X196 of int | `X197 of int | `X198 of int | `X199 of int | `X200 of int
+ *   | `X201 of int | `X202 of int | `X203 of int | `X204 of int | `X205 of int
+ *   | `X206 of int | `X207 of int | `X208 of int | `X209 of int | `X210 of int
+ *   | `X211 of int | `X212 of int | `X213 of int | `X214 of int | `X215 of int
+ *   | `X216 of int | `X217 of int | `X218 of int | `X219 of int | `X220 of int
+ *   | `X221 of int | `X222 of int | `X223 of int | `X224 of int | `X225 of int
+ *   | `X226 of int | `X227 of int | `X228 of int | `X229 of int | `X230 of int
+ *   | `X231 of int | `X232 of int | `X233 of int | `X234 of int | `X235 of int
+ *   | `X236 of int | `X237 of int | `X238 of int | `X239 of int | `X240 of int
+ *   | `X241 of int | `X242 of int | `X243 of int | `X244 of int | `X245 of int
+ *   | `X246 of int | `X247 of int | `X248 of int | `X249 of int | `X250 of int
+ *   | `X251 of int | `X252 of int | `X253 of int | `X254 of int | `X255 of int
+ *   | `X256 of int | `X257 of int | `X258 of int | `X259 of int ]
+ * [@@deriving repr { name = "v"}] [@@ocamlformat "disable"]
+ * 
+ * let v_t = Alcotest.testable (T.pp v) (T.unstage (T.equal v)) *)
 
-let v_t = Alcotest.testable (T.pp v) (T.unstage (T.equal v))
-
-let test_variants () =
-  let test i =
-    let x = to_bin_string v i in
-    let y =
-      match of_bin_string v x with Ok x -> x | Error (`Msg e) -> failwith e
-    in
-    let n = size_of v i in
-    let s = to_bin_string v i in
-    Alcotest.(check int) ("sizes " ^ s) (String.length x) n;
-    Alcotest.(check v_t) ("bij " ^ s) i y
-  in
-  test `X000;
-  test (`X259 0);
-  test (`X259 1024);
-  test (`X259 (1024 * 1024))
+(* let test_variants () =
+ *   let test i =
+ *     let x = to_bin_string v i in
+ *     let y =
+ *       match of_bin_string v x with Ok x -> x | Error (`Msg e) -> failwith e
+ *     in
+ *     let n = size_of v i in
+ *     let s = to_bin_string v i in
+ *     Alcotest.(check int) ("sizes " ^ s) (String.length x) n;
+ *     Alcotest.(check v_t) ("bij " ^ s) i y
+ *   in
+ *   test `X000;
+ *   test (`X259 0);
+ *   test (`X259 1024);
+ *   test (`X259 (1024 * 1024)) *)
 
 (* Test that reusing the same name for different fields raises. *)
 let test_duplicate_names () =
@@ -927,7 +927,7 @@ let () =
           ("random", `Quick, test_random);
           ("ints", `Quick, test_int);
           ("decode", `Quick, test_decode);
-          ("test_variants", `Quick, test_variants);
+          (* ("test_variants", `Quick, test_variants); *)
           ("test_duplicate_names", `Quick, test_duplicate_names);
           ("test_malformed_utf8", `Quick, test_malformed_utf8);
           ("test_stdlib_containers", `Quick, test_stdlib_containers);
